@@ -1,1 +1,0 @@
-Django_ver2
