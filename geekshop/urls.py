@@ -10,6 +10,7 @@ app_name = 'mainapp'
 urlpatterns = [
     re_path(r'^$', mainapp.main, name='main'),
     re_path(r'^products/', include('mainapp.urls', namespace='products')),
+    re_path(r'^order/', include('ordersapp.urls', namespace='order')),
     path('contact/', mainapp.contact, name='contact'),
     path('auth/', include('authapp.urls', namespace='auth')),
     path('basket/', include('basketapp.urls', namespace='basket')),
