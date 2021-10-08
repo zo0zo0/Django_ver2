@@ -2,19 +2,21 @@
 {% load static %}
 <html>
 <head>
-	<meta charset="utf-8">
-	<title>
-        {% block title %}
-            {{ title|capfirst }}
-        {% endblock %}
-    </title>
-    {% block css %}
-        <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
-        <link rel="stylesheet" href="{% static 'fonts/font-awesome/css/font-awesome.css' %}">
-    {% endblock %}
-    {% block js %}
-
-    {% endblock %}
+  <meta charset="utf-8">
+  <title>
+       {% block title %}
+           {{ title|capfirst }}
+       {% endblock %}
+   </title>
+   {% block css %}
+       <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}">
+       <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+       <link rel="stylesheet" href="{% static 'fonts/font-awesome/css/font-awesome.css' %}">
+   {% endblock %}
+   {% block js %}
+       <script src="{% static 'js/jquery-3.2.1.min.js' %}"></script>
+       <script src="{% static 'js/bootstrap.min.js' %}"></script>
+   {% endblock %}
 </head>
 <body>
 	<div class="container">
@@ -46,7 +48,9 @@
                     <h3>Оставайтесь на связи</h3>
                     <p>Подписаться на новости и рассылки</p>
                     <form>
-                        <input type="email" name="email" placeholder="ваш email">
+                        <label>
+                            <input type="email" name="email" placeholder="ваш email">
+                        </label>
                         <a href="#"><i class="fa fa-paper-plane fa-2x" aria-hidden="true"></i></a>
                     </form>
                 </div>
