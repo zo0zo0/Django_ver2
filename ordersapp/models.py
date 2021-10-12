@@ -60,7 +60,17 @@ class Order(models.Model):
         self.save()
 
 
+class OrderItemQuerySet(models.QuerySet):
+
+   def delete(self, *args, **kwargs):
+       for object in self:
+           object.product.quantity += object.quantity
+           object.product.save()
+       super(OrderItemQuerySet, self).delete(*args, **kwargs)
+
+
 class OrderItem(models.Model):
+    objects = OrderItemQuerySet.as_manager()
     order = models.ForeignKey(Order,
                               related_name="orderitems",
                               on_delete=models.CASCADE)
@@ -72,3 +82,8 @@ class OrderItem(models.Model):
 
     def get_product_cost(self):
         return self.product.price * self.quantity
+
+    def delete(self):
+        self.product.quantity += self.quantity
+        self.product.save()
+        super(self.__class__, self).delete()
