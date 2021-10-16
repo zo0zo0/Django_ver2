@@ -1,0 +1,6 @@
+# requirements.in
+psycopg2
+pillow
+django
+django-debug-toolbar
+social_auth_app_django
