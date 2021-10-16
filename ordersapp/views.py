@@ -11,6 +11,8 @@ from basketapp.models import Basket
 from ordersapp.models import Order, OrderItem
 from ordersapp.forms import OrderItemForm
 
+from django.http import JsonResponse
+from mainapp.models import Product
 
 class OrderList(ListView):
    model = Order
@@ -62,6 +64,15 @@ class OrderItemsCreate(CreateView):
 
        return super(OrderItemsCreate, self).form_valid(form)
 
+   def get_product_price(request, pk):
+       if request.is_ajax():
+           product = Product.objects.filter(pk=int(pk)).first()
+           if product:
+               return JsonResponse({'price': product.price})
+           else:
+               return JsonResponse({'price': 0})
+
+
 class OrderItemsUpdate(CreateView):
    model = Order
    fields = []
@@ -100,6 +111,15 @@ class OrderItemsUpdate(CreateView):
 
        return super(OrderItemsUpdate, self).form_valid(form)
 
+   def get_product_price(request, pk):
+       if request.is_ajax():
+           product = Product.objects.filter(pk=int(pk)).first()
+           if product:
+               return JsonResponse({'price': product.price})
+           else:
+               return JsonResponse({'price': 0})
+
+
 class OrderDelete(DeleteView):
    model = Order
    success_url = reverse_lazy('ordersapp:orders_list')
@@ -111,6 +131,15 @@ class OrderRead(DetailView):
        context = super(OrderRead, self).get_context_data(**kwargs)
        context['title'] = 'заказ/просмотр'
        return context
+
+   def get_product_price(request, pk):
+       if request.is_ajax():
+           product = Product.objects.filter(pk=int(pk)).first()
+           if product:
+               return JsonResponse({'price': product.price})
+           else:
+               return JsonResponse({'price': 0})
+
 
 def order_forming_complete(request, pk):
     order = get_object_or_404(Order, pk=pk)
