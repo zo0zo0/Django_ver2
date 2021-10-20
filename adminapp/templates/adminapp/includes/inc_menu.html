@@ -6,9 +6,10 @@
         </a>
     </li>
     <li>
-        <a href="{% url 'admin:categories' %}" 
-        class="{% if request.resolver_match.url_name == 'categories' or category.name %}active{% endif %}">
-            категории{% if category %}:<span>{{ category.name }}</span>{% endif %}
+        <a href="{% url 'admin:categories' %}"
+           class="{% if request.resolver_match.url_name == 'categories' or category.name %}active{% endif %}">
+            категории
+            {% if category %}:<span>{{ category.name }}</span>{% endif %}
         </a>
     </li>
 </ul>
