@@ -1,4 +1,5 @@
 from django.contrib.auth.decorators import login_required
+from django.db.models import F
 from django.http import JsonResponse
 from django.shortcuts import render, HttpResponseRedirect, get_object_or_404
 from basketapp.models import Basket
@@ -36,8 +37,12 @@ def basket_add(request, pk):
     if not basket:
         basket = Basket(user=request.user, product=product)
 
-    basket.quantity += 1
-    basket.save()
+    #basket.quantity += 1
+    #basket.save()
+    old_basket_item = Basket.get_product(user=request.user, product=product)
+    if old_basket_item:
+        old_basket_item[0].quantity = F('quantity') + 1
+        old_basket_item[0].save()
 
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
