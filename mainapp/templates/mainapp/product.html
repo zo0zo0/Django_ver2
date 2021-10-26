@@ -1,7 +1,6 @@
 {% extends 'mainapp/base.html' %}
 {% load static %}
 
-
 {% block content %}
     <div class="details">
         <div class="links clearfix">
@@ -37,8 +36,7 @@
                 <br>
                 <p class="price"> {{ product.price }} <span>руб</span></p>
                 <a href="{% url 'basket:add' product.pk %}" class="red-button">
-                    заказать 
-                    <i class="fa fa-chevron-right" aria-hidden="true"></i>
+                    заказать<i class="fa fa-chevron-right" aria-hidden="true"></i>
                 </a>
                 <div class="description-text">
                     {{ product.description }}
@@ -49,5 +47,4 @@
     </div>
 
     <div class="clr"></div>
-
 {% endblock %}

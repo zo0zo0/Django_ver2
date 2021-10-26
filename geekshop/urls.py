@@ -1,18 +1,22 @@
+from django.contrib import admin
+from django.urls import path, include, re_path
 import mainapp.views as mainapp
 from django.conf import settings
-from django.conf.urls import include
 from django.conf.urls.static import static
-from django.urls import path
+
 
 urlpatterns = [
-    path('', mainapp.main, name='main'),
+    path('admin/', include('adminapp.urls', namespace='admin')),
     path('products/', include('mainapp.urls', namespace='products')),
     path('contact/', mainapp.contact, name='contact'),
-    path('auth/', include('authapp.urls', namespace='auth')),
+    path('', mainapp.main, name='main'),
+    path('auth/',  include('authapp.urls', namespace='auth')),
     path('basket/', include('basketapp.urls', namespace='basket')),
-
-    path('admin/', include('adminapp.urls', namespace='admin')),
+    path('', include('social_django.urls', namespace='social')),
+    re_path(r'^order/', include('ordersapp.urls', namespace='order')),
 ]
 
 if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+   import debug_toolbar
+
+   urlpatterns += [re_path(r'^__debug__/', include(debug_toolbar.urls))]
